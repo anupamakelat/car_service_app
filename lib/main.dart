@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_car_service_app/splash.dart';
+import 'package:flutter_car_service_app/common/splash.dart';
+import 'package:flutter_car_service_app/database/signup/model.dart';
 
-void main() {
+import 'package:hive_flutter/adapters.dart';
+
+Future<void>main()async {
+   WidgetsFlutterBinding.ensureInitialized();
+
+   await Hive.initFlutter();
+   Hive.openBox<SignupDetails>('signup_db');
+
+
+
+   if(!Hive.isAdapterRegistered(SignupDetailsAdapter().typeId))
+   Hive.registerAdapter(SignupDetailsAdapter());
+
   runApp(const MyApp());
 }
 

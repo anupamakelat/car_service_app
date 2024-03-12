@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:flutter_car_service_app/common/signin.dart';
+import 'package:flutter_car_service_app/common/signup.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -74,34 +76,42 @@ class _HomeScreenState extends State<HomeScreen> {
                     Image.asset('images/welcome.jpeg'),
                     SizedBox(height: 30,),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                        width: 150,
-                        height:35,
-                          decoration: BoxDecoration(color: Colors.black,
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(9),),
-                          child: Align(alignment:Alignment.center ,
-                            child: Text(
-                              'sign in',
-                              style: TextStyle(fontSize: 18,color: const Color.fromARGB(255, 227, 225, 219)),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SingIn()));
+                          },
+                          child: Container(
+                          width: 150,
+                          height:35,
+                            decoration: BoxDecoration(color: Colors.black,
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(9),),
+                            child: Align(alignment:Alignment.center ,
+                              child: Text(
+                                'sign in',
+                                style: TextStyle(fontSize: 18,color: const Color.fromARGB(255, 227, 225, 219)),
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 30,
-                         
-                        ),
-                        Container(
-                           height: 35,
-                          width: 150,
-                          decoration: BoxDecoration(color: Colors.black,
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(9),
-                          ),
-                          child: Align(alignment: Alignment.center,
-                            child: Text('sign up',
-                            style: TextStyle(fontSize: 18,color: Color.fromARGB(255, 227, 225, 219)),),
+                       
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SingUp()));
+                          },
+                          child: Container(
+                             height: 35,
+                            width: 150,
+                            decoration: BoxDecoration(color: Colors.black,
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(9),
+                            ),
+                            child: Align(alignment: Alignment.center,
+                              child: Text('sign up',
+                              style: TextStyle(fontSize: 18,color: Color.fromARGB(255, 227, 225, 219)),),
+                            ),
                           ),
                         )
                       ],

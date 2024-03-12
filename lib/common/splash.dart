@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_car_service_app/home.dart';
+import 'package:flutter_car_service_app/common/welcome.dart';
 
 class MySplash extends StatefulWidget {
   const MySplash({super.key});
