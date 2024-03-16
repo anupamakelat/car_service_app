@@ -20,7 +20,7 @@ class SignupDetails{
   String conformpassword;
 
   SignupDetails({
-    required this.id,
+     this.id,
     required this.name,
     required this.phone,
     required this.email,

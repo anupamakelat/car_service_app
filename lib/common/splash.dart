@@ -1,8 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_car_service_app/common/signin.dart';
 import 'package:flutter_car_service_app/common/welcome.dart';
+import 'package:flutter_car_service_app/common/widgets/bottomnav.dart';
+import 'package:flutter_car_service_app/user/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MySplash extends StatefulWidget {
   const MySplash({super.key});
@@ -16,19 +20,20 @@ with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    checkUserLoggin();
+   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
 
-    Future.delayed(Duration(seconds: 3),(){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const HomeScreen(),));
-    });
+    // Future.delayed(Duration(seconds: 3),(){
+    //   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const HomeScreen(),));
+    // });
   }
-  @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-    overlays: SystemUiOverlay.values);  
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+  //   overlays: SystemUiOverlay.values);  
+  //   super.dispose();
+  // }
   
 
 
@@ -53,4 +58,21 @@ with SingleTickerProviderStateMixin {
       
     );
   }
+  Future<void>checkUserLoggin()async{
+    final sharedprefs=await SharedPreferences.getInstance();
+    final userLoggedin =sharedprefs.getBool(SAVE_KEY_NAME);
+     
+     if(userLoggedin==null || userLoggedin==false){
+      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const HomeScreen(),));
+       Future.delayed(Duration(seconds: 3),(){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (welcomeScreen)=>const HomeScreen(),));
+    });
+     }else{
+   Future.delayed(Duration(seconds: 3),(){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (welcomeScreen)=>const MyNav(),));
+    });
+     }
+
+  }
+
 }
