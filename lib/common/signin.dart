@@ -5,11 +5,12 @@ import 'package:flutter_car_service_app/admin/adhome.dart';
 import 'package:flutter_car_service_app/common/signup.dart';
 import 'package:flutter_car_service_app/common/widgets/bottomnav.dart';
 import 'package:flutter_car_service_app/database/signup/model.dart';
-import 'package:flutter_car_service_app/user/home.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 // ignore: constant_identifier_names
-const SAVE_KEY_NAME='saveUser';
+const SAVE_KEY_NAME = 'saveUser';
+
 class SingIn extends StatefulWidget {
   const SingIn({super.key});
 
@@ -20,77 +21,104 @@ class SingIn extends StatefulWidget {
 class _SingInState extends State<SingIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  final formkey=GlobalKey<FormState>();
+  final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Container(decoration: BoxDecoration(
-       gradient: LinearGradient(begin: Alignment.topLeft,end: Alignment.bottomRight,colors: [Color.fromARGB(255, 146, 236, 241),Color.fromARGB(255, 251, 251, 251)])
-      
-    ),
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+            Color.fromARGB(255, 146, 236, 241),
+            Color.fromARGB(255, 251, 251, 251)
+          ])),
       child: Scaffold(
-           backgroundColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
           body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30, right: 30),
-          child: Form(key: formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("Sign In",style: TextStyle(fontSize: 32,fontWeight: FontWeight.w700),),SizedBox(height: 40,),
-                TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator:validateEmail,
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      
-                        hintText: 'Email',
-                        border: UnderlineInputBorder()),
-                  ),
-                const SizedBox(
-                  height: 26,
-                ),
-               TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: validateCreatepassword,
-                    controller: passController,
-                    decoration: InputDecoration(
-                     
-                        hintText: 'Create Passcode',
-                        border: UnderlineInputBorder()),
-                  ),
-                SizedBox(height: 49,),
-                InkWell(
-                  onTap: (){
-                    submit();
-                  },
-                  child: Container(
-                    height: 35,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(9),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Form(
+                key: formkey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Sign In",
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
                     ),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                            fontSize: 18, color: Color.fromARGB(255, 227, 225, 219)),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validateEmail,
+                      controller: emailController,
+                      decoration: InputDecoration(
+                          hintText: 'Email', border: UnderlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 26,
+                    ),
+                    TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validateCreatepassword,
+                      controller: passController,
+                      decoration: InputDecoration(
+                          hintText: 'Create Passcode',
+                          border: UnderlineInputBorder()),
+                    ),
+                    SizedBox(
+                      height: 49,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        submit();
+                      },
+                      child: Container(
+                        height: 35,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                        child: const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Sign In',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 227, 225, 219)),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 18,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (signup) => const SingUp()),
+                              (route) => false);
+                        },
+                        child: const Text(
+                          'I don\'t have an accont ',
+                          style: TextStyle(color: Colors.black),
+                        ))
+                  ],
                 ),
-                SizedBox(height: 18,),
-                TextButton(onPressed: (){Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (signup)=>const SingUp()), (route) => false);}, child: const Text('I don\'t have an accont ',style: TextStyle(color: Colors.black),))
-              ],
+              ),
             ),
-          ),
-        ),
-      )),
+          )),
     );
   }
 
-    String? validateEmail(String? value) {
+  String? validateEmail(String? value) {
     final trimmedValue = value?.trim();
 
     if (trimmedValue == null || trimmedValue.isEmpty) {
@@ -107,7 +135,7 @@ class _SingInState extends State<SingIn> {
     return null;
   }
 
-   String? validateCreatepassword(String? value) {
+  String? validateCreatepassword(String? value) {
     final trimmedValue = value?.trim();
 
     if (trimmedValue == null || trimmedValue.isEmpty) {
@@ -115,7 +143,8 @@ class _SingInState extends State<SingIn> {
     }
     return null;
   }
-   void submit() {
+
+  void submit() {
     if (formkey.currentState!.validate()) {
       formkey.currentState!.save();
 
@@ -124,8 +153,7 @@ class _SingInState extends State<SingIn> {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (ctx) => ADhome()));
       } else {
-        login(
-            emailController.text, passController.text, context);
+        login(emailController.text, passController.text, context);
       }
     }
   }
@@ -150,7 +178,8 @@ class _SingInState extends State<SingIn> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool(SAVE_KEY_NAME, true);
       await saveUserEmail(email);
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (home)=>MyNav()) ,(route) => false);
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (home) => MyNav()), (route) => false);
     } else {
       showDialog(
           context: context,
@@ -172,4 +201,3 @@ class _SingInState extends State<SingIn> {
     await prefs.setString('currentUser', email);
   }
 }
-

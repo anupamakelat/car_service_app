@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_car_service_app/common/signin.dart';
 import 'package:flutter_car_service_app/common/welcome.dart';
 import 'package:flutter_car_service_app/common/widgets/bottomnav.dart';
-import 'package:flutter_car_service_app/user/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MySplash extends StatefulWidget {

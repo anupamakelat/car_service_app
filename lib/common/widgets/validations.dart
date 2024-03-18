@@ -1,23 +1,21 @@
-
-
 import 'package:flutter_car_service_app/common/signup.dart';
 
-class validations{
- 
- static String? nameValidator(String? value) {
+class validations {
+  static String? nameValidator(String? value) {
     final trimmedvalue = value?.trim();
 
     if (trimmedvalue == null || trimmedvalue.isEmpty) {
       return 'Enter Your Name';
     }
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z ]+$');
+    final RegExp nameRegExp = RegExp(r'^[A-Z][a-zA-Z ]*$');
 
     if (!nameRegExp.hasMatch(trimmedvalue)) {
-      return "Enter Valid Name";
+      return "First letter should be capital";
     }
     return null;
   }
- static  String? validatePhone(String? value) {
+
+  static String? validatePhone(String? value) {
     final trimmedvalue = value?.trim();
 
     if (trimmedvalue == null || trimmedvalue.isEmpty) {
@@ -34,7 +32,7 @@ class validations{
   }
 
   //email
- static String? validateEmail(String? value) {
+  static String? validateEmail(String? value) {
     final trimmedValue = value?.trim();
 
     if (trimmedValue == null || trimmedValue.isEmpty) {
@@ -52,7 +50,7 @@ class validations{
   }
 
   //createpassword
-static  String? validateCreatepassword(String? value) {
+  static String? validateCreatepassword(String? value) {
     final trimmedValue = value?.trim();
 
     if (trimmedValue == null || trimmedValue.isEmpty) {
@@ -62,18 +60,17 @@ static  String? validateCreatepassword(String? value) {
   }
 
   //conformepassword
- static String? validateConformpassword(String? value) {
+  static String? validateConformpassword(String? value) {
     final trimmedValue = value?.trim();
 
     if (trimmedValue == null || trimmedValue.isEmpty) {
       return 'Re Enter your password';
     }
 
-    if (trimmedValue !=passController.text) {
+    if (trimmedValue != passController.text) {
       return 'Password must watch';
     }
 
     return null;
   }
-
 }

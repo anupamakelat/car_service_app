@@ -4,7 +4,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_car_service_app/user/account.dart';
-import 'package:flutter_car_service_app/user/cart.dart';
 import 'package:flutter_car_service_app/user/home.dart';
 import 'package:flutter_car_service_app/user/orders.dart';
 
@@ -19,8 +18,9 @@ class _MyNavState extends State<MyNav> {
   int indexNum = 0;
   List screen = [
     MyHome(),
-    Orders(),
     Account(),
+    Orders(),
+
   ];
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _MyNavState extends State<MyNav> {
             size: 30,
             //color: Color.fromARGB(255, 37, 34, 34),
           ),
-          Icon(Icons.list, size: 30),
+          Icon(Icons.account_circle_rounded, size: 30),
           Icon(CupertinoIcons.bell)
         ],
         onTap: (index) {

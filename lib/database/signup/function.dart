@@ -38,14 +38,14 @@ void userCheck(String email,context) async {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('error'),
-              content: Text('User alredy exists'),
+              title: const Text('error'),
+              content: const Text('User alredy exists'),
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('ok'))
+                    child: const Text('ok'))
               ],
             );
           });
