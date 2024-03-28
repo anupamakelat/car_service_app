@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter_car_service_app/common/signup.dart';
 
 class validations {
@@ -73,4 +75,15 @@ class validations {
 
     return null;
   }
+
+  //to validate cannot be empty
+static String? validateEmpty(String? value) {
+  
+  final trimmedValue = value?.trim();
+
+  if (trimmedValue == null || trimmedValue.isEmpty) {
+    return 'Cannot be empty';
+  }
+  return null; 
+}
 }

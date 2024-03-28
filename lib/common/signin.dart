@@ -150,8 +150,7 @@ class _SingInState extends State<SingIn> {
 
       if (emailController.text == 'admin@gmail.com' &&
           passController.text == 'admin123') {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (ctx) => ADhome()));
+        Navigator.pushAndRemoveUntil(context,  MaterialPageRoute(builder: (adhome)=> ADhome()), (route) => false);
       } else {
         login(emailController.text, passController.text, context);
       }
@@ -166,8 +165,7 @@ class _SingInState extends State<SingIn> {
 
     for (var i = 0; i < signupDB.length; i++) {
       final currentUser = signupDB.getAt(i);
-
-      if (currentUser?.email == email &&
+            if (currentUser?.email == email &&
           currentUser?.conformpassword == password) {
         signup = currentUser;
         break;

@@ -1,5 +1,8 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import 'package:flutter_car_service_app/common/splash.dart';
+import 'package:flutter_car_service_app/database/addDriver.dart/model.dart';
 import 'package:flutter_car_service_app/database/signup/model.dart';
 
 import 'package:hive_flutter/adapters.dart';
@@ -9,6 +12,7 @@ Future<void>main()async {
 
    await Hive.initFlutter();
    Hive.openBox<SignupDetails>('signup_db');
+   Hive.openBox<DriverData>('addDetails');
 
 
 
@@ -16,6 +20,9 @@ Future<void>main()async {
    Hive.registerAdapter(SignupDetailsAdapter());
 
   runApp(const MyApp());
+
+  if(!Hive.isAdapterRegistered(DriverDataAdapter().typeId))
+  Hive.registerAdapter(DriverDataAdapter());
 }
 
 class MyApp extends StatelessWidget {

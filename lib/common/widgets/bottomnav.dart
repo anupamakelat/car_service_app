@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_car_service_app/user/account.dart';
 import 'package:flutter_car_service_app/user/home.dart';
-import 'package:flutter_car_service_app/user/orders.dart';
+import 'package:flutter_car_service_app/user/notification.dart';
 
 class MyNav extends StatefulWidget {
   const MyNav({super.key});
@@ -19,7 +19,7 @@ class _MyNavState extends State<MyNav> {
   List screen = [
     MyHome(),
     Account(),
-    Orders(),
+    MyNotification(),
 
   ];
   @override

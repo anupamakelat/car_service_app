@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:flutter_car_service_app/common/signin.dart';
 import 'package:flutter_car_service_app/common/widgets/carousel.dart';
+import 'package:flutter_car_service_app/user/driverdetails.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -53,9 +53,7 @@ class _MyHomeState extends State<MyHome> {
          Padding(
            padding: const EdgeInsets.only(left: 10,right: 10,top: 8,bottom: 8),
            child: InkWell(onTap: (){
-            
-          
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (log)=>SingIn()), (route) => false);
+            Navigator.push(context, MaterialPageRoute(builder: (driver)=>DriverView()));
            },
              child: Container(
               color: Colors.white,

@@ -2,13 +2,14 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_car_service_app/database/getUser.dart';
+import 'package:flutter_car_service_app/common/signin.dart';
 import 'package:flutter_car_service_app/database/signup/model.dart';
+import 'package:flutter_car_service_app/user/orders.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -21,13 +22,12 @@ class _AccountState extends State<Account> {
   SignupDetails? currentUser;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUser();
   }
 
   Future<void> getUser() async {
-    print('sdfsdfsdf');
+    print('sdfsdfsdftrtrt33');
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     print('2sdfsdfsdf');
     var userEmail = prefs.getString('currentUser');
@@ -39,7 +39,7 @@ class _AccountState extends State<Account> {
       (user) => user.email == userEmail,
     );
     setState(() {});
-    print('this is the emil:${currentUser!.email},');
+   // print('this is the emil:${currentUser!.email},');
   }
 
   @override
@@ -81,7 +81,7 @@ class _AccountState extends State<Account> {
                     height: 7,
                   ),
                   Text(
-                    currentUser!.phone,
+                    '${currentUser?.phone}',
                     style: TextStyle(fontSize: 16),
                   )
                 ],
@@ -111,19 +111,23 @@ class _AccountState extends State<Account> {
           color: const Color.fromARGB(255, 71, 68, 68),
           thickness: 0.9,
         ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Icon(CupertinoIcons.chat_bubble_text,size: 35,color:Color.fromARGB(255, 50, 192, 57) ,),
-            ),
-            SizedBox(width: 10,),
-            Text('Customer Support & FAQ',style: GoogleFonts.poppins(fontSize:18),),Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Icon(Icons.arrow_forward_ios),
-            ),
-          ],
+        InkWell(onTap: (){
+          lunchurl();
+        },
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Icon(CupertinoIcons.chat_bubble_text,size: 35,color:Color.fromARGB(255, 50, 192, 57) ,),
+              ),
+              SizedBox(width: 10,),
+              Text('Privacy & Policy',style: GoogleFonts.poppins(fontSize:18),),Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Icon(Icons.arrow_forward_ios),
+              ),
+            ],
+          ),
         ),
         Divider(
           height: 0.9,
@@ -168,26 +172,48 @@ class _AccountState extends State<Account> {
           color: const Color.fromARGB(255, 71, 68, 68),
           thickness: 0.9,
         ),
-         Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Icon(CupertinoIcons.cart_fill,size: 35,color:Color.fromARGB(255, 50, 192, 57) ,),
-            ),
-            SizedBox(width: 10,),
-            Text('Cart',style: GoogleFonts.poppins(fontSize:18),),Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Icon(Icons.arrow_forward_ios),
-            ),
-          ],
-        ),
+         InkWell(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Orders()));},
+           child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Icon(CupertinoIcons.cart_fill,size: 35,color:Color.fromARGB(255, 50, 192, 57) ,),
+              ),
+              SizedBox(width: 10,),
+              Text('Cart',style: GoogleFonts.poppins(fontSize:18),),Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Icon(Icons.arrow_forward_ios),
+              ),
+            ],
+                   ),
+         ),
          Divider(
           height: 0.9,
           color: const Color.fromARGB(255, 71, 68, 68),
           thickness: 0.9,
         ),
          Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Icon(CupertinoIcons.profile_circled,size: 35,color:Color.fromARGB(255, 50, 192, 57) ,),
+            ),
+            SizedBox(width: 10,),
+            Text('Profile',style: GoogleFonts.poppins(fontSize:18),),Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Icon(Icons.arrow_forward_ios),
+            ),
+          ],
+
+        ),
+        Divider(
+          height: 0.9,
+          color: const Color.fromARGB(255, 71, 68, 68),
+          thickness: 0.9,
+        ),
+        Row(
           children: [
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -202,17 +228,19 @@ class _AccountState extends State<Account> {
           ],
 
         ),
+
         SizedBox(
-          height: 30,
+          height: 40,
         ),
         InkWell(
                       onTap: () {
+                        logout(context);
                       },
                       child: Container(
                         height: 35,
                         width: 150,
                         decoration: BoxDecoration(
-                          color: Colors.black,
+                          color: const Color.fromARGB(255, 235, 228, 228),
                           border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(9),
                         ),
@@ -222,7 +250,7 @@ class _AccountState extends State<Account> {
                             'Logout',
                             style: TextStyle(
                                 fontSize: 18,
-                                color: Color.fromARGB(255, 227, 225, 219)),
+                                color: Color.fromARGB(255, 16, 15, 13)),
                           ),
                         ),
                       ),
@@ -241,3 +269,31 @@ class _AccountState extends State<Account> {
     );
   }
 }
+
+void logout(context){
+  showDialog(context: context, builder: (context){
+    return AlertDialog(
+      title: Text('Logout'),
+      content: Text('Do you want to logout'),
+      actions: [
+        ElevatedButton(onPressed: (){singout(context);}, child: Text('yes')),
+        ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text('no')),
+      ],
+    );
+  });
+}
+singout(context)async{
+  final sharedpref=await SharedPreferences.getInstance();
+  await sharedpref.clear();
+  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (login)=>SingIn()), (route) => false);
+}
+
+Future<void> lunchurl()async{
+  final url=Uri.parse('https://www.termsfeed.com/live/7580bd1f-1af8-498c-8b79-5ad54503b516');
+  if(await launchUrl(url)){
+    //dailer opened
+  }else{
+    SnackBar(content: Text('couldn\'t launch the page '));
+  }
+}
+
