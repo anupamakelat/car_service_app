@@ -27,9 +27,9 @@ class _AccountState extends State<Account> {
   }
 
   Future<void> getUser() async {
-    print('sdfsdfsdftrtrt33');
+  
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('2sdfsdfsdf');
+   
     var userEmail = prefs.getString('currentUser');
 
     final useBox = await Hive.openBox<SignupDetails>('signup_db');

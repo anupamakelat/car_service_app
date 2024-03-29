@@ -1,8 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_car_service_app/database/addDriver.dart/model.dart';
+import 'package:flutter_car_service_app/database/bookDetails.dart/funtions.dart';
+import 'package:flutter_car_service_app/database/signup/model.dart';
+import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookDetails extends StatefulWidget {
    BookDetails({super.key,required this.driver});
@@ -13,6 +18,7 @@ class BookDetails extends StatefulWidget {
 }
 
 class _BookDetailsState extends State<BookDetails> {
+  TextEditingController pickupController=TextEditingController();
   TimeOfDay? pickupTime;
   String? selectedestimatetym;
   List<String> estimatetym = ['2Hrs', '4Hrs', '6Hrs', '8Hrs', '10Hrs', '12Hrs'];
@@ -46,6 +52,30 @@ class _BookDetailsState extends State<BookDetails> {
     return null;
   }
 
+  SignupDetails? currentUser;
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
+  Future<void> getUser() async {
+  
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+   
+    var userEmail = prefs.getString('currentUser');
+
+    final useBox = await Hive.openBox<SignupDetails>('signup_db');
+
+    print(useBox.values);
+    currentUser = useBox.values.firstWhere(
+      (user) => user.email == userEmail,
+    );
+    setState(() {});
+   // print('this is the emil:${currentUser!.email},');
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +96,7 @@ class _BookDetailsState extends State<BookDetails> {
               ),
             ),
             TextFormField(
+              controller:pickupController ,
               decoration: InputDecoration(
                   hintText: 'Your pick up location',
                   border: OutlineInputBorder(
@@ -179,6 +210,10 @@ class _BookDetailsState extends State<BookDetails> {
                 onPressed: () {
                   print(pickupTime);
                   print(widget.driver!.name);
+
+                  if(pickupController.text.isNotEmpty&&_entryTimeController.text.isNotEmpty&&selectedgear!=null&&seletedModel!=null&&selectedestimatetym!=null){
+                 addReq(context,  pickup: pickupController.text, gear: selectedgear, model: seletedModel, time: _entryTimeController.text, estimatetym: selectedestimatetym, data: widget.driver, currentUser: currentUser);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.black, // Change the text color to white
@@ -193,4 +228,6 @@ class _BookDetailsState extends State<BookDetails> {
       ),
     );
   }
+
+  
 }
